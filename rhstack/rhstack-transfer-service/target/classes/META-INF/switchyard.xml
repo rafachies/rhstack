@@ -80,11 +80,15 @@
       <sca:service name="AccountSummaryProcess">
         <sca:interface.java interface="org.rchies.rhstack.transfer.service.AccountSummaryProcess"/>
       </sca:service>
+      <sca:reference name="SummarySenderComponent">
+        <sca:interface.java interface="org.rchies.rhstack.transfer.service.SummarySenderComponent"/>
+      </sca:reference>
     </sca:component>
     <sca:service name="AccountSummaryProcess" promote="AccountSummaryProcess/AccountSummaryProcess">
       <sca:interface.java interface="org.rchies.rhstack.transfer.service.AccountSummaryProcess"/>
       <resteasy:binding.rest name="AccounSummaryBinding">
-        <resteasy:contextMapper class="org.rchies.rhstack.transfer.util.ProcessInstanceIdMapper" includes=".*processInstanceId"/>
+        <resteasy:contextMapper class="org.switchyard.component.resteasy.composer.RESTEasyContextMapper" includes=".*"/>
+        <resteasy:messageComposer class="org.switchyard.component.resteasy.composer.RESTEasyMessageComposer"/>
         <resteasy:interfaces>org.rchies.rhstack.transfer.resource.AccountSummaryResource</resteasy:interfaces>
         <resteasy:contextPath>rest/summary</resteasy:contextPath>
       </resteasy:binding.rest>
@@ -99,7 +103,7 @@
   <sy:transforms/>
   <sy:domain>
     <sy:properties>
-      <sy:property name="org.switchyard.handlers.messageTrace.enabled" value="true"/>
+      <sy:property name="org.switchyard.handlers.messageTrace.enabled" value="false"/>
     </sy:properties>
   </sy:domain>
 </sy:switchyard>
