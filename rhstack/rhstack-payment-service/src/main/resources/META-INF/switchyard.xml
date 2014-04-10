@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sy:switchyard xmlns:bean="urn:switchyard-component-bean:config:1.1" xmlns:camel="urn:switchyard-component-camel:config:1.1" xmlns:resteasy="urn:switchyard-component-resteasy:config:1.1" xmlns:rules="urn:switchyard-component-rules:config:1.1" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:soap="urn:switchyard-component-soap:config:1.1" xmlns:sy="urn:switchyard-config:switchyard:1.1" xmlns:transform="urn:switchyard-config:transform:1.1" name="rhstack-payment-service" targetNamespace="urn:com.example.switchyard:switchyard-example:1.0">
+  <sca:composite name="rhstack-payment-service" targetNamespace="urn:com.example.switchyard:switchyard-example:1.0">
+    <sca:component name="PaymentServiceBean">
+      <camel:implementation.camel>
+        <camel:java class="org.rchies.rhstack.payment.component.PaymentServiceRoute"/>
+      </camel:implementation.camel>
+      <sca:service name="PaymentService">
+        <sca:interface.java interface="org.rchies.rhstack.payment.component.PaymentService"/>
+      </sca:service>
+      <sca:reference name="SessionComponent">
+        <sca:interface.java interface="org.rchies.rhstack.payment.component.SessionComponent"/>
+      </sca:reference>
+      <sca:reference name="RuleComponent">
+        <sca:interface.java interface="org.rchies.rhstack.payment.component.RuleComponent"/>
+      </sca:reference>
+      <sca:reference name="DebitComponent">
+        <sca:interface.java interface="org.rchies.rhstack.payment.component.DebitComponent"/>
+      </sca:reference>
+      <sca:reference name="VendorService">
+        <sca:interface.java interface="org.rchies.rhstack.payment.component.VendorService"/>
+      </sca:reference>
+    </sca:component>
+    <sca:component name="RuleComponent">
+      <rules:implementation.rules>
+        <rules:manifest>
+          <rules:resources>
+            <rules:resource location="PaymentRules.drl" type="DRL"/>
+          </rules:resources>
+        </rules:manifest>
+      </rules:implementation.rules>
+      <sca:service name="RuleComponent">
+        <sca:interface.java interface="org.rchies.rhstack.payment.component.RuleComponent"/>
+      </sca:service>
+    </sca:component>
+    <sca:component name="DebitComponent">
+      <bean:implementation.bean class="org.rchies.rhstack.payment.component.DebitComponentBean"/>
+      <sca:service name="DebitComponent">
+        <sca:interface.java interface="org.rchies.rhstack.payment.component.DebitComponent"/>
+      </sca:service>
+    </sca:component>
+    <sca:service name="PaymentService" promote="PaymentServiceBean/PaymentService">
+      <sca:interface.java interface="org.rchies.rhstack.payment.component.PaymentService"/>
+      <resteasy:binding.rest>
+        <resteasy:interfaces>org.rchies.rhstack.payment.resource.PaymentResource,org.rchies.rhstack.payment.resource.PaymentResource</resteasy:interfaces>
+        <resteasy:contextPath>rest/payment</resteasy:contextPath>
+      </resteasy:binding.rest>
+    </sca:service>
+    <sca:component name="SessionComponent">
+      <bean:implementation.bean class="org.rchies.rhstack.payment.component.SessionComponentBean"/>
+      <sca:service name="SessionComponent">
+        <sca:interface.java interface="org.rchies.rhstack.payment.component.SessionComponent"/>
+      </sca:service>
+    </sca:component>
+    <sca:reference name="VendorPayment" multiplicity="0..1" promote="PaymentServiceBean/VendorService">
+      <sca:interface.wsdl interface="VendorPayment.wsdl#wsdl.porttype(VendorPayment)"/>
+      <soap:binding.soap name="VendorPaymentBinding">
+        <soap:wsdl>VendorPayment.wsdl</soap:wsdl>
+        <soap:wsdlPort>VendorPaymentPort</soap:wsdlPort>
+        <soap:endpointAddress>http://localhost:8080/rhstack-vendor/VendorPayment</soap:endpointAddress>
+      </soap:binding.soap>
+    </sca:reference>
+  </sca:composite>
+  <sy:transforms>
+    <transform:transform.smooks from="java:org.rchies.rhstack.payment.dto.PaymentRequest" to="{http://org.rchies.rhstack/}payment" type="JAVA2XML" config="PaymentRequestToPaymentVendor.xml"/>
+  </sy:transforms>
+</sy:switchyard>

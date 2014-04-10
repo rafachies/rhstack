@@ -1,0 +1,10 @@
+<web-app>
+	<servlet>
+		<servlet-name>VendorPayment</servlet-name>
+		<servlet-class>org.rchies.rhstack.vendor.VendorPaymentWS</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VendorPayment</servlet-name>
+		<url-pattern>/VendorPayment</url-pattern>
+	</servlet-mapping>
+</web-app>

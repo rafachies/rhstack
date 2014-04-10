@@ -1,0 +1,12 @@
+package org.rchies.rhstack.payment
+
+import org.rchies.rhstack.payment.dto.PaymentRequest
+
+rule "Limit Exceeded Rule"
+    when
+        payment: PaymentRequest( paymentValue > 1000 )
+    then
+    	System.out.println("Limit Exceeded Rule fired!");
+        payment.setApproved(false);
+        payment.setRejectionReason("Limit for payment value exceeded");
+end

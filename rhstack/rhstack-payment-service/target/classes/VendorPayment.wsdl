@@ -1,0 +1,61 @@
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://org.rchies.rhstack/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+	name="VendorPayment" targetNamespace="http://org.rchies.rhstack/">
+	<wsdl:types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			xmlns:tns="http://org.rchies.rhstack/" elementFormDefault="unqualified"
+			targetNamespace="http://org.rchies.rhstack/" version="1.0">
+			<xs:element name="payment" type="tns:payment" />
+			<xs:element name="paymentResponse" type="tns:paymentResponse" />
+			<xs:element name="vendorPaymentRequest" type="tns:vendorPaymentRequest" />
+			<xs:complexType name="payment">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="paymentRequest"
+						type="tns:vendorPaymentRequest" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="vendorPaymentRequest">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="value" type="xs:double" />
+					<xs:element minOccurs="0" name="accountId" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="paymentResponse">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="code" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="payment">
+		<wsdl:part element="tns:payment" name="parameters"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="paymentResponse">
+		<wsdl:part element="tns:paymentResponse" name="parameters"></wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="VendorPayment">
+		<wsdl:operation name="payment">
+			<wsdl:input message="tns:payment" name="payment"></wsdl:input>
+			<wsdl:output message="tns:paymentResponse" name="paymentResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="VendorPaymentSoapBinding" type="tns:VendorPayment">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="payment">
+			<soap:operation soapAction="payment" style="document" />
+			<wsdl:input name="payment">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="paymentResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="VendorPayment">
+		<wsdl:port binding="tns:VendorPaymentSoapBinding" name="VendorPaymentPort">
+			<soap:address location="http://localhost:8080/rhstack-vendor/VendorPayment" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
