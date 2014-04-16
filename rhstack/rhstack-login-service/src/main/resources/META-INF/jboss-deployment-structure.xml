@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.1">
+	<deployment>
+		<module-alias name="rhstack-login-service"/>
+		<dependencies>
+			<module name="org.infinispan" slot="6.0.1" />
+		</dependencies>
+	</deployment>
+</jboss-deployment-structure>
