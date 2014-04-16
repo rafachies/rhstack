@@ -16,5 +16,6 @@
 		<module>rhstack-payment-service</module>
 		<module>rhstack-transfer-service</module>
 		<module>rhstack-vendor</module>
-  </modules>
+		<module>rhstack-ibanking</module>
+	</modules>
 </project>
