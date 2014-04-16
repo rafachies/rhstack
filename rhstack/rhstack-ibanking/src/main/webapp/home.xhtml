@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h1>RHStack - iBanking - Home page</h1>
+
+		<div>
+			<p>JSF Application used as a FSW frontend</p>
+		</div>
+
+		<h:form id="reg">
+			<h3>Last operation result message:</h3>
+			<h:panelGrid columns="1">
+				<h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning" globalOnly="true" />
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

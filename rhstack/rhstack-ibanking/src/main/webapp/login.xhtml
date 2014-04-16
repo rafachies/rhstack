@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    template="/WEB-INF/templates/default.xhtml">
+    <ui:define name="content">
+        <h1>RHStack - iBanking - Login page</h1>
+
+        <div>
+            <p>A simple JSF application that calls Restful service at http://fsw-host/rest/authentication/login</p>
+        </div>
+
+        <h:form id="reg">
+            <h2>Login</h2>
+            <h:panelGrid columns="3" columnClasses="titleCell">
+                <h:outputLabel for="username" value="Name:" />
+                <h:inputText id="username" value="#{credential.username}" />
+                <h:message for="username" errorClass="invalid" />
+
+                <h:outputLabel for="password" value="Password:" />
+                <h:inputSecret id="password" value="#{credential.password}" />
+                <h:message for="password" errorClass="invalid" />
+            </h:panelGrid>
+
+            <p>
+                <h:panelGrid columns="1">
+                    <h:commandButton id="submit" action="#{loginController.login}" value="Submit" styleClass="register" />
+                </h:panelGrid>
+                <h:panelGrid columns="1">
+                    <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning" globalOnly="true" />
+                </h:panelGrid>
+            </p>
+        </h:form>
+	</ui:define>
+</ui:composition>

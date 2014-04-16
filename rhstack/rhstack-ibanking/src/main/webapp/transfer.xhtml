@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    template="/WEB-INF/templates/default.xhtml">
+    <ui:define name="content">
+        <h1>RHStack - iBanking - Transfer page</h1>
+
+        <div>
+            <p>Calls service at http://fsw-host/rh-service/transfer</p>
+        </div>
+
+        <h:form id="transfer">
+            <h3>Transfer</h3>
+            <h:panelGrid columns="3" columnClasses="titleCell">
+                <h:outputLabel for="value" value="Transfer Value:" />
+                <h:inputText id="value" value="#{transfer.value}" />
+                <h:message for="value" errorClass="invalid" />
+
+                <h:outputLabel for="debitAccount" value="Debit Account:" />
+                <h:inputText id="debitAccount" value="#{transfer.debitAccount}" />
+                <h:message for="debitAccount" errorClass="invalid" />
+                
+                <h:outputLabel for="creditAccount" value="Credit Account:" />
+                <h:inputText id="creditAccount" value="#{transfer.creditAccount}" />
+                <h:message for="creditAccount" errorClass="invalid" />
+                
+                <h:outputLabel for="username" value="Username:" />
+                <h:inputText id="username" value="#{transfer.username}" />
+                <h:message for="username" errorClass="invalid" />
+            </h:panelGrid>
+
+            <p>
+                <h:panelGrid columns="1">
+                    <h:commandButton id="submit" action="#{transferController.transfer}" value="Confirm" styleClass="register" />
+                </h:panelGrid>
+                <h:panelGrid columns="1">
+                    <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning" globalOnly="true" />
+                </h:panelGrid>
+            </p>
+        </h:form>
+	</ui:define>
+</ui:composition>
