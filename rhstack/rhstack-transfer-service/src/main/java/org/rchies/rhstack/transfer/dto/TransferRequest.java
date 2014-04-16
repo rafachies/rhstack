@@ -21,10 +21,7 @@ public class TransferRequest {
 	@JsonIgnore
 	private Account creditAccount;
 	
-	@JsonIgnore
 	private Boolean approved;
-	
-	@JsonIgnore
 	private String rejectionReason;
 	
 	

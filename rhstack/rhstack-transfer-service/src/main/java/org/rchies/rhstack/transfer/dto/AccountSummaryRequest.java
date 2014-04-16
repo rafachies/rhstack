@@ -4,6 +4,7 @@ public class AccountSummaryRequest {
 
 	private String accountId;
 	private Integer months;
+	
 	public String getAccountId() {
 		return accountId;
 	}

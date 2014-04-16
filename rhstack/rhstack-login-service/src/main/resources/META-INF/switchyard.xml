@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<switchyard xmlns="urn:switchyard-config:switchyard:1.0" xmlns:bean="urn:switchyard-component-bean:config:1.0" xmlns:camel="urn:switchyard-component-camel:config:1.0" xmlns:jms="urn:switchyard-component-camel-jms:config:1.0" xmlns:resteasy="urn:switchyard-component-resteasy:config:1.0" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:soap="urn:switchyard-component-soap:config:1.0" xmlns:transform="urn:switchyard-config:transform:1.0" name="rhstack" targetNamespace="urn:rhstack:1.0">
+<switchyard xmlns="urn:switchyard-config:switchyard:1.1" xmlns:bean="urn:switchyard-component-bean:config:1.1" xmlns:camel="urn:switchyard-component-camel:config:1.1" xmlns:jms="urn:switchyard-component-camel-jms:config:1.1" xmlns:resteasy="urn:switchyard-component-resteasy:config:1.1" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:soap="urn:switchyard-component-soap:config:1.1" xmlns:transform="urn:switchyard-config:transform:1.1" name="rhstack" targetNamespace="urn:rhstack:1.0">
   <sca:composite name="rhstack" targetNamespace="urn:rhstack:1.0">
     <sca:component name="LoginServiceBean">
       <camel:implementation.camel>
@@ -8,18 +8,18 @@
       <sca:service name="LoginService">
         <sca:interface.java interface="org.rchies.rhstack.service.LoginService"/>
       </sca:service>
-      <sca:reference name="CacheService">
-        <sca:interface.java interface="org.rchies.rhstack.service.CacheService"/>
-      </sca:reference>
       <sca:reference name="AuthenticatorService">
         <sca:interface.java interface="org.rchies.rhstack.service.AuthenticatorService"/>
+      </sca:reference>
+      <sca:reference name="CacheService">
+        <sca:interface.java interface="org.rchies.rhstack.service.CacheService"/>
       </sca:reference>
     </sca:component>
     <sca:service name="LoginService" promote="LoginServiceBean/LoginService">
       <sca:interface.java interface="org.rchies.rhstack.service.LoginService"/>
       <resteasy:binding.rest>
         <resteasy:interfaces>org.rchies.rhstack.service.binding.LoginResource</resteasy:interfaces>
-        <resteasy:contextPath>login</resteasy:contextPath>
+        <resteasy:contextPath>rhstack-service/login</resteasy:contextPath>
       </resteasy:binding.rest>
     </sca:service>
     <sca:component name="CacheServiceBean">
@@ -49,7 +49,7 @@
       <sca:interface.java interface="org.rchies.rhstack.service.LogoutService"/>
       <resteasy:binding.rest>
         <resteasy:interfaces>org.rchies.rhstack.service.binding.LogoutResource</resteasy:interfaces>
-        <resteasy:contextPath>logout</resteasy:contextPath>
+        <resteasy:contextPath>rhstack-service/logout</resteasy:contextPath>
       </resteasy:binding.rest>
     </sca:service>
   </sca:composite>

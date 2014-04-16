@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sy:switchyard xmlns:bean="urn:switchyard-component-bean:config:1.1" xmlns:bpm="urn:switchyard-component-bpm:config:1.1" xmlns:camel="urn:switchyard-component-camel:config:1.1" xmlns:jpa="urn:switchyard-component-camel-jpa:config:1.1" xmlns:resteasy="urn:switchyard-component-resteasy:config:1.1" xmlns:rules="urn:switchyard-component-rules:config:1.1" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:soap="urn:switchyard-component-soap:config:1.1" xmlns:sy="urn:switchyard-config:switchyard:1.1" xmlns:transform="urn:switchyard-config:transform:1.1" name="rhstack-transfer-service" targetNamespace="urn:com.example.switchyard:switchyard-example:1.0">
-  <sca:composite name="rhstack-transfer-service" targetNamespace="urn:com.example.switchyard:switchyard-example:1.0">
+<sy:switchyard xmlns:bean="urn:switchyard-component-bean:config:1.1" xmlns:bpm="urn:switchyard-component-bpm:config:1.1" xmlns:camel="urn:switchyard-component-camel:config:1.1" xmlns:jpa="urn:switchyard-component-camel-jpa:config:1.1" xmlns:resteasy="urn:switchyard-component-resteasy:config:1.1" xmlns:rules="urn:switchyard-component-rules:config:1.1" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:soap="urn:switchyard-component-soap:config:1.1" xmlns:sy="urn:switchyard-config:switchyard:1.1" xmlns:transform="urn:switchyard-config:transform:1.1" name="rhstack-transfer-service" targetNamespace="urn:org.rchies.rhstack:rhstack-transfer:1.0">
+  <sca:composite name="rhstack-transfer-service" targetNamespace="urn:org.rchies.rhstack:rhstack-transfer:1.0">
     <sca:component name="TransferServiceRoute">
       <camel:implementation.camel requires="managedTransaction.Global">
         <camel:java class="org.rchies.rhstack.transfer.service.TransferServiceRoute"/>
@@ -28,7 +28,7 @@
       <sca:interface.java interface="org.rchies.rhstack.transfer.service.TransferService"/>
       <resteasy:binding.rest name="TransferServiceBinding">
         <resteasy:interfaces>org.rchies.rhstack.transfer.resource.TransferResource</resteasy:interfaces>
-        <resteasy:contextPath>rest/transfer</resteasy:contextPath>
+        <resteasy:contextPath>rhstack-service/transfer</resteasy:contextPath>
       </resteasy:binding.rest>
     </sca:service>
     <sca:component name="DebitComponent">
@@ -74,7 +74,14 @@
               <bpm:output from="Result" to="message.content"/>
             </bpm:outputs>
           </bpm:operation>
-          <bpm:operation eventId="Signal_1" name="approveSummary" type="SIGNAL_EVENT"/>
+          <bpm:operation eventId="Signal_1" name="approveSummary" type="SIGNAL_EVENT">
+            <bpm:inputs>
+              <bpm:input from="message.content" to="Parameter"/>
+            </bpm:inputs>
+            <bpm:outputs>
+              <bpm:output from="Result" to="message.content"/>
+            </bpm:outputs>
+          </bpm:operation>
         </bpm:operations>
       </bpm:implementation.bpm>
       <sca:service name="AccountSummaryProcess">
@@ -87,10 +94,9 @@
     <sca:service name="AccountSummaryProcess" promote="AccountSummaryProcess/AccountSummaryProcess">
       <sca:interface.java interface="org.rchies.rhstack.transfer.service.AccountSummaryProcess"/>
       <resteasy:binding.rest name="AccounSummaryBinding">
-        <resteasy:contextMapper class="org.switchyard.component.resteasy.composer.RESTEasyContextMapper" includes=".*"/>
-        <resteasy:messageComposer class="org.switchyard.component.resteasy.composer.RESTEasyMessageComposer"/>
+        <resteasy:contextMapper class="org.rchies.rhstack.transfer.util.ProcessInstanceIdMapper"/>
         <resteasy:interfaces>org.rchies.rhstack.transfer.resource.AccountSummaryResource</resteasy:interfaces>
-        <resteasy:contextPath>rest/summary</resteasy:contextPath>
+        <resteasy:contextPath>rhstack-service/summary</resteasy:contextPath>
       </resteasy:binding.rest>
     </sca:service>
     <sca:component name="SummarySender">

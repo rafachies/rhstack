@@ -4,7 +4,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.rchies.rhstack.transfer.dto.AccountSummaryRequest;
@@ -39,10 +38,9 @@ public class AccountSummaryProcessTest {
 	private Invoker service;
 
 	@Test
-	@Ignore
 	public void testCorrelationKey() throws Exception {
 		MockHandler summarySenderMock = testKit.replaceService("SummarySenderComponent");
-		service.property(CORRELATION_KEY_URN, "AABBCC", Scope.EXCHANGE).operation("askSummary").sendInOut(new AccountSummaryRequest()).getContext();
+		service.property(CORRELATION_KEY_URN, "AABBCC", Scope.EXCHANGE).operation("askSummary").sendInOut(new AccountSummaryRequest());
 		service.property(CORRELATION_KEY_URN, "AABBCC", Scope.EXCHANGE).operation("approveSummary").sendInOnly(null);
 		summarySenderMock.setWaitTimeout(400);
 		summarySenderMock.waitForOKMessage();

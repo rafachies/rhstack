@@ -42,8 +42,8 @@
     <sca:service name="PaymentService" promote="PaymentServiceBean/PaymentService">
       <sca:interface.java interface="org.rchies.rhstack.payment.component.PaymentService"/>
       <resteasy:binding.rest>
-        <resteasy:interfaces>org.rchies.rhstack.payment.resource.PaymentResource,org.rchies.rhstack.payment.resource.PaymentResource</resteasy:interfaces>
-        <resteasy:contextPath>rest/payment</resteasy:contextPath>
+        <resteasy:interfaces>org.rchies.rhstack.payment.resource.PaymentResource</resteasy:interfaces>
+        <resteasy:contextPath>rhstack-service/payment</resteasy:contextPath>
       </resteasy:binding.rest>
     </sca:service>
     <sca:component name="SessionComponent">
@@ -57,7 +57,7 @@
       <soap:binding.soap name="VendorPaymentBinding">
         <soap:wsdl>VendorPayment.wsdl</soap:wsdl>
         <soap:wsdlPort>VendorPaymentPort</soap:wsdlPort>
-        <soap:endpointAddress>http://localhost:8080/rhstack-vendor/VendorPayment</soap:endpointAddress>
+        <soap:endpointAddress>http://localhost:8380/rhstack-vendor/VendorPayment</soap:endpointAddress>
       </soap:binding.soap>
     </sca:reference>
   </sca:composite>

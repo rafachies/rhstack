@@ -4,15 +4,15 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.rchies.rhstack.service.Credential;
 
-@Path("/authentication")
+@Path("/")
 public interface LoginResource {
 
 	@POST
-	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void login(Credential credential);
-	
+	public Response login(Credential credential);
+
 }

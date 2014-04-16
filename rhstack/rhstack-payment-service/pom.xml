@@ -9,7 +9,6 @@
 		<version>1.0.0</version>
 	</parent>
 	<artifactId>rhstack-payment-service</artifactId>
-	<packaging>war</packaging>
 	
 	<properties>
 		<version.org.infinispan>6.0.1.Final-redhat-2</version.org.infinispan>
@@ -29,29 +28,26 @@
 	
 	<dependencies>
 
+		<!-- Infinispan dependencies, provided by a custom module -->
 		<dependency>
 			<groupId>org.infinispan</groupId>
 			<artifactId>infinispan-client-hotrod</artifactId>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.infinispan</groupId>
 			<artifactId>infinispan-core</artifactId>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
-
+		
+		<!-- BRMS dependencies, provided by fsw modules -->
 		<dependency>
 			<groupId>org.kie</groupId>
 			<artifactId>kie-api</artifactId>
 			<version>6.0.0-redhat-9</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.kie</groupId>
-			<artifactId>kie-api</artifactId>
-			<version>6.0.0-redhat-9</version>
-			<scope>compile</scope>
-		</dependency>
+		
 		<dependency>
 			<groupId>org.switchyard.components</groupId>
 			<artifactId>switchyard-component-bean</artifactId>

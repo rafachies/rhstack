@@ -16,6 +16,6 @@ public interface AccountSummaryResource {
 	public void askSummary(AccountSummaryRequest accountSummaryRequest);
 	
 	@GET
-	@Path("approve")
+	@Path("/approve")
 	public void approveSummary();
 }

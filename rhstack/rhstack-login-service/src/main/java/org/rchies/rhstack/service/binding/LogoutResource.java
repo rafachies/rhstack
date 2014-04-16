@@ -7,11 +7,11 @@ import javax.ws.rs.core.MediaType;
 
 import org.rchies.rhstack.service.Credential;
 
-@Path("/authentication")
+
+@Path("/")
 public interface LogoutResource {
 
 	@POST
-	@Path("/logout")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void logout(Credential credential);
 }
