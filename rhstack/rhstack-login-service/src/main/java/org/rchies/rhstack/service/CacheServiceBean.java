@@ -15,9 +15,11 @@ public class CacheServiceBean implements CacheService {
 	private Logger logger;
 
 	public Credential login(Credential credential) {
+		String datagridHost = System.getProperty("datagrid.address");
+		Integer datagridPort = Integer.valueOf(System.getProperty("datagrid.port"));
 		logger.info("CacheService.login called for user: " + credential.getUsername());
 		ConfigurationBuilder builder = new ConfigurationBuilder();
-		builder.addServer().host("localhost").port(11322);
+		builder.addServer().host(datagridHost).port(datagridPort);
 		RemoteCacheManager cacheManager = new RemoteCacheManager(builder.build());
 		RemoteCache<String, String> cache = cacheManager.getCache("loginCache");
 		cache.put(credential.getUsername(), credential.getPassword());
@@ -26,9 +28,11 @@ public class CacheServiceBean implements CacheService {
 
 	@Override
 	public Credential logout(Credential credential) {
+		String datagridHost = System.getProperty("datagrid.address");
+		Integer datagridPort = Integer.valueOf(System.getProperty("datagrid.port"));
 		logger.info("CacheService.logout called for user: " + credential.getUsername());
 		ConfigurationBuilder builder = new ConfigurationBuilder();
-		builder.addServer().host("localhost").port(11322);
+		builder.addServer().host(datagridHost).port(datagridPort);
 		RemoteCacheManager cacheManager = new RemoteCacheManager(builder.build());
 		RemoteCache<String, String> cache = cacheManager.getCache("loginCache");
 		cache.remove(credential.getUsername());

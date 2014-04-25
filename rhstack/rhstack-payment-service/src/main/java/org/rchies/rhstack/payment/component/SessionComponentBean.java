@@ -17,9 +17,11 @@ public class SessionComponentBean implements SessionComponent {
 	
 	@Override
 	public PaymentRequest check(PaymentRequest paymentRequest) {
+		String datagridAddress = System.getProperty("datagrid.address");
+		Integer datagridPort = Integer.valueOf(System.getProperty("datagrid.port"));
 		logger.info("SesssionCheckerService.check called for user: " + paymentRequest.getUsername());
 		ConfigurationBuilder builder = new ConfigurationBuilder();
-		builder.addServer().host("localhost").port(11322);
+		builder.addServer().host(datagridAddress).port(datagridPort);
 		RemoteCacheManager cacheManager = new RemoteCacheManager(builder.build());
 		RemoteCache<String, String> cache = cacheManager.getCache("loginCache");
 		if (sessionHasExpired(paymentRequest, cache)) {

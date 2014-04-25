@@ -2,32 +2,14 @@ package org.rchies.rhstack.transfer.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "account")
 public class Account implements Serializable {
 
 	private static final long serialVersionUID = 5279393080137015396L;
 
-	@Id
-	@GeneratedValue
 	private Long id;
-	
-	@Column(name = "accountid")
 	private String accountId;
-	
-	@Column(name = "balance")
 	private Double balance;
-	
-	@Column(name = "accounttype")
 	private String accountType;
-	
-	@Column(name = "blocked")
 	private Boolean blocked;
 	
 	public void debit(Double debitValue) {

@@ -25,5 +25,4 @@ public class PaymentServiceRoute extends RouteBuilder {
 		.log("Payment response: ${body}")
 		.end();
 	}
-
 }

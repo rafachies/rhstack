@@ -57,7 +57,7 @@
       <soap:binding.soap name="VendorPaymentBinding">
         <soap:wsdl>VendorPayment.wsdl</soap:wsdl>
         <soap:wsdlPort>VendorPaymentPort</soap:wsdlPort>
-        <soap:endpointAddress>http://localhost:8380/rhstack-vendor/VendorPayment</soap:endpointAddress>
+        <soap:endpointAddress>http://localhost:8080/rhstack-vendor/VendorPayment</soap:endpointAddress>
       </soap:binding.soap>
     </sca:reference>
   </sca:composite>

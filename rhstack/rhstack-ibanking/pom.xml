@@ -52,6 +52,39 @@
 
     <dependencies>
 
+		<dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-api</artifactId>
+			<version>6.0.0-redhat-9</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-ci</artifactId>
+			<version>6.0.0-redhat-9</version>
+			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.kie</groupId>
+					<artifactId>kie-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.kie</groupId>
+					<artifactId>kie-internal</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.drools</groupId>
+					<artifactId>drools-compiler</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.drools</groupId>
+					<artifactId>drools-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+
         <!-- Import the CDI API, we use provided scope as the API is included in EAP -->
         <dependency>
             <groupId>javax.enterprise</groupId>

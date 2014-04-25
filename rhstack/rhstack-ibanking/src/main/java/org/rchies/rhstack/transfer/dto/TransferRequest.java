@@ -2,8 +2,6 @@ package org.rchies.rhstack.transfer.dto;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.rchies.rhstack.transfer.entity.Account;
 
 
@@ -19,10 +17,8 @@ public class TransferRequest implements Serializable {
 	private String debitAccountId;
 	private String creditAccountId;
 	
-	@JsonIgnore
 	private Account debitAccount;
 	
-	@JsonIgnore
 	private Account creditAccount;
 	
 	private Boolean approved;
@@ -127,8 +123,4 @@ public class TransferRequest implements Serializable {
 		this.username = username;
 	}
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this).toString();
-	}
 }

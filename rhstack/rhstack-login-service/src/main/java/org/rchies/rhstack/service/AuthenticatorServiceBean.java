@@ -13,7 +13,7 @@ public class AuthenticatorServiceBean implements AuthenticatorService {
 	
 	public Credential login(Credential credential) {
 		System.out.println(credential.getUsername());
-		logger.info("Authenticating {1} with password {2}", credential.getUsername(), credential.getPassword());
+		logger.info("Authenticating {} with password {}", credential.getUsername(), credential.getPassword());
 		if (credentialNotProvided(credential)) {
 			credential.setAuthenticated(false);
 			return credential;
