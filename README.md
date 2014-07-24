@@ -8,7 +8,7 @@ This demo currently is based on:
  Red Hat BRMS 6.0.0
  Red Hat Fuse Service Works 6.0.0
  
-Configuration steps:
+Configuration steps for deployment:
 
 1) All services (login, payment and transfer) communicates with the JDG, and beacuase of that we need two system properties on FSW: datagrid.address and datagrid.port.
 
@@ -36,3 +36,22 @@ Configuration steps:
             <module name="sun.jdk"/>
          </dependencies>
       </module>
+
+3) The transfer-service uses kie-api from BRMS to call some rules, and we user the kie-ci for that, using kjar deployed in a Mevan repository. The problem is that FSW 6.0.0 does not have kie-ci in their modules, so we need to create other extra module to hold this kie-ci library. We need to create the module folder, create the module.xml, and put the library.
+
+
+      mkdir -p %FSW_HOME/modules/org/kie/kie-ci/main
+      
+      <module xmlns="urn:jboss:module:1.0" name="org.kie.kie-ci">
+         <resources>
+           <resource-root path="kie-ci-6.0.0-redhat-9.jar"/>
+         </resources>
+         <dependencies>
+           <module name="javax.enterprise.api"/>
+           <module name="org.drools"/>
+           <module name="org.jbpm"/>
+           <module name="org.slf4j"/>
+         </dependencies>
+      </module>
+
+4) Now we can deploy the services on FSW
