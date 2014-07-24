@@ -42,16 +42,60 @@ Configuration steps for deployment:
 
       mkdir -p %FSW_HOME/modules/org/kie/kie-ci/main
       
-      <module xmlns="urn:jboss:module:1.0" name="org.kie.kie-ci">
-         <resources>
-           <resource-root path="kie-ci-6.0.0-redhat-9.jar"/>
-         </resources>
-         <dependencies>
-           <module name="javax.enterprise.api"/>
-           <module name="org.drools"/>
-           <module name="org.jbpm"/>
-           <module name="org.slf4j"/>
-         </dependencies>
-      </module>
+      <module xmlns="urn:jboss:module:1.1" name="org.kie.kie-ci">
+	<resources>
+		<resource-root path="aether-api-1.13.1.jar" />
+		<resource-root path="aether-connector-file-1.13.1.jar" />
+		<resource-root path="aether-connector-wagon-1.13.1.jar" />
+		<resource-root path="aether-impl-1.13.1.jar" />
+		<resource-root path="aether-spi-1.13.1.jar" />
+		<resource-root path="aether-util-1.13.1.jar" />
+		<resource-root path="ant-1.8.3.jar" />
+		<resource-root path="ant-launcher-1.8.3.jar" />
+		<resource-root path="antlr-2.7.7-redhat-2.jar" />
+		<resource-root path="commons-logging-api-1.1.jar"/>
+		<resource-root path="httpclient-4.2.1-redhat-1.jar"/>
+		<resource-root path="httpcore-4.2.1-redhat-1.jar"/>
+		<resource-root path="kie-ci-6.0.2-redhat-2.jar" />
+		<resource-root path="maven-aether-provider-3.0.5.jar" />
+		<resource-root path="maven-artifact-3.0.5.jar" />
+		<resource-root path="maven-compat-3.0.5.jar" />
+		<resource-root path="maven-core-3.0.5.jar" />
+		<resource-root path="maven-model-3.0.5.jar" />
+		<resource-root path="maven-model-builder-3.0.5.jar" />
+		<resource-root path="maven-plugin-api-3.0.5.jar" />
+		<resource-root path="maven-repository-metadata-3.0.5.jar" />
+		<resource-root path="maven-settings-3.0.5.jar" />
+		<resource-root path="maven-settings-builder-3.0.5.jar" />
+		<resource-root path="mvel2-2.1.8.Final-redhat-4.jar" />
+		<resource-root path="plexus-cipher-1.4.jar" />
+		<resource-root path="plexus-classworlds-2.4.jar" />
+		<resource-root path="plexus-component-annotations-1.5.5.jar" />
+		<resource-root path="plexus-interpolation-1.14.jar" />
+		<resource-root path="plexus-sec-dispatcher-1.3.jar" />
+		<resource-root path="plexus-utils-3.0.9.jar" />
+		<resource-root path="sisu-guice-3.0.3-no_aop.jar" />
+		<resource-root path="sisu-inject-bean-2.2.3.jar" />
+		<resource-root path="sisu-inject-plexus-2.2.3.jar" />
+		<resource-root path="slf4j-api-1.7.2-redhat-1.jar" />
+		<resource-root path="wagon-ahc-1.2.1.jar" />
+		<resource-root path="wagon-http-2.0.jar"/>
+		<resource-root path="wagon-provider-api-1.0-beta-7.jar" />
+		<resource-root path="wagon-http-shared4-2.0.jar"/>
+		<!-- Insert resources here -->
+	</resources>
 
+	<dependencies>
+		<module name="javax.api" />
+		<module name="sun.jdk" />
+		<module name="org.kie"/>
+		<module name="org.drools"/>
+		<module name="org.apache.httpcomponents"/>
+	</dependencies>
+</module>
+
+
+  After that, we need to declare in the module.xml of module org.kie that it depends on our new module org.kie.kie-ci
+      
 4) Now we can deploy the services on FSW
+
